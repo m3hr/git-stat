@@ -1,0 +1,15 @@
+.............................*.**........
+
+Pending:
+  BrandUser add some examples to (or delete) /Users/rileytg/code/jones/spec/models/brand_user_spec.rb
+    # No reason given
+    # ./spec/models/brand_user_spec.rb:4
+  Favorite add some examples to (or delete) /Users/rileytg/code/jones/spec/models/favorite_spec.rb
+    # No reason given
+    # ./spec/models/favorite_spec.rb:4
+  Order add some examples to (or delete) /Users/rileytg/code/jones/spec/models/order_spec.rb
+    # No reason given
+    # ./spec/models/order_spec.rb:4
+
+Finished in 16.23 seconds
+41 examples, 0 failures, 3 pending
