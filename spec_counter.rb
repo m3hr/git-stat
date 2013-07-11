@@ -4,9 +4,10 @@ end
 #exec? edit: no need, string interpolation works in rspec_scanner
 spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no_failing_some_pending.rb")
 
-  #end
 saved_current_time = Time.now
-
+def is_regex_empty?(current_string, regex_match)
+  
+end
 #spec_run_time = %x( rspec ).scan(/\d+\.\d+ seconds/)
 puts saved_current_time
 spec_examples_array.each do |case_example|
