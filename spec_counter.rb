@@ -1,3 +1,4 @@
+require 'csv'
 def rspec_scanner(file_specified)
   %x( rspec #{file_specified} ).scan(/\d+\.\d+ second.|\d+ example.|\d+ failure.|\d+ pending/)
 end
@@ -7,6 +8,11 @@ spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no
 saved_current_time = Time.now
 def is_regex_empty?(current_string, regex_match)
   
+end
+def starting_work
+  CSV.open("test.csv","ab") do |csv|
+    csv << ["Run time of tests", "Examples", "Failures", "Pending"]
+  end
 end
 #spec_run_time = %x( rspec ).scan(/\d+\.\d+ seconds/)
 puts saved_current_time
@@ -25,3 +31,5 @@ spec_examples_array.each do |case_example|
     puts "pending", number_of_pending
   end
 end
+
+puts test_runtime
