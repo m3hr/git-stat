@@ -1,16 +1,17 @@
 require 'csv'
+
 def rspec_scanner(file_specified)
   %x( rspec #{file_specified} ).scan(/\d+\.\d+ second.|\d+ example.|\d+ failure.|\d+ pending/)
 end
 #exec? edit: no need, string interpolation works in rspec_scanner
 spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no_failing_some_pending.rb")
 
-saved_current_time = Time.now
+ saved_current_time = Time.now
 def is_regex_empty?(current_string, regex_match)
   
 end
-def starting_work
-  CSV.open("test.csv","ab") do |csv|
+def title_csv(csv_file_location)
+  CSV.open("#{csv_file_location}","ab") do |csv|
     csv << ["Run time of tests", "Examples", "Failures", "Pending"]
   end
 end
@@ -32,4 +33,9 @@ spec_examples_array.each do |case_example|
   end
 end
 
-puts test_runtime
+ puts test_runtime
+def append_spec_data(time, examples, failures, pending, csv_file_location) 
+  CSV.open("#{csv_file_location}","ab") do |csv|
+    csv << ["#{time}", "#{examples}", "#{failures}", "#{pending}"]  
+  end
+end
