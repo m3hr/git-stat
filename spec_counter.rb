@@ -1,8 +1,8 @@
 def rspec_scanner(file_specified)
   %x( rspec #{file_specified} ).scan(/\d+\.\d+ second.|\d+ example.|\d+ failure.|\d+ pending/)
 end
-#exec?
-spec_examples_array = rspec_scanner("")
+#exec? edit: no need, string interpolation works in rspec_scanner
+spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no_failing_some_pending.rb")
 
   #end
 saved_current_time = Time.now
