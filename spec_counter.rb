@@ -1,5 +1,5 @@
 require 'csv'
-
+include GitStat
 module RspecScanner
   def rspec_scanner(file_specified)
     %x( rspec #{file_specified} ).scan(/\d+\.\d+ second.|\d+ example.|\d+ failure.|\d+ pending/)
@@ -15,7 +15,7 @@ module RspecScanner
   #spec_run_time = %x( rspec ).scan(/\d+\.\d+ seconds/)
   def rspec_output_finder(current_array)
     current_array.each do |case_example|
-      if !case_example.scan(/\d+\.\d+ second./).empty?
+      if !case_example.is_regex_empty?("second")
         test_runtime = case_example.scan(/\d+\.\d+/)
         puts "seconds", test_runtime
       elsif !case_example.scan(/\d+ example./).empty?
@@ -26,16 +26,19 @@ module RspecScanner
         puts "failures", number_of_failures
       elsif !case_example.scan(/\d+ pending/).empty?
         number_of_pending = case_example.scan(/\d+/)
-        puts "pending", number_of_pending
+        puts "pending", number_of_pending        
       end
     end
   end
   
   def append_spec_data(time, examples, failures, pending, csv_file_location) 
-    saved_current_time = Time.now  
+    saved_current_time = Time.now.to_s
     CSV.open("#{csv_file_location}","ab") do |csv|
       csv << ["#{time}", "#{examples}", "#{failures}", "#{pending}"]  
     end
   end  
 end
+include RspecScanner
+spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no_failing_some_pending.rb")
 
+rspec_output_finder(spec_examples_array)
