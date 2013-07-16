@@ -1,3 +1,4 @@
+#! /usr/bin/ruby
 puts 'Welcome to git-stat, what type of metric should I run? Type "list" for a list of metrics'
 type_of_metric = gets.chomp
 case type_of_metric

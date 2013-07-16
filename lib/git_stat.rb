@@ -17,16 +17,16 @@ module RspecScanner
   def rspec_output_finder(current_array)
     current_array.each do |case_example|
       if !case_example.is_regex_empty?("\\d+ second")
-        @test_runtime = case_example.scan(/\d+\.\d+/)#.to_i
+        @test_runtime = case_example.scan(/\d+\.\d+/)[0].to_f
         puts "seconds", @test_runtime
       elsif !case_example.is_regex_empty?("\\d+ example")
-        @number_of_examples = case_example.scan(/\d+/)#.to_f
+        @number_of_examples = case_example.scan(/\d+/)[0].to_i
         puts "examples", @number_of_examples
       elsif !case_example.is_regex_empty?("\\d+ failure")
-        @number_of_failures = case_example.scan(/\d+/)#.to_f
+        @number_of_failures = case_example.scan(/\d+/)[0].to_i
         puts "failures", @number_of_failures
       elsif !case_example.is_regex_empty?("\\d+ pending")
-        @number_of_pending = case_example.scan(/\d+/)#.to_f
+        @number_of_pending = case_example.scan(/\d+/)[0].to_i
         puts "pending", @number_of_pending        
       elsif case_example.is_regex_empty?("\\d+ pending")
         @number_of_pending = 0
@@ -41,7 +41,3 @@ module RspecScanner
     end
   end  
 end
-include RspecScanner
-spec_examples_array = rspec_scanner("~/junk/git-stat/spec/fixtures/no_passing_no_failing_some_pending.rb")
-
-rspec_output_finder(spec_examples_array)
