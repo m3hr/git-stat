@@ -16,19 +16,19 @@ module RspecScanner
   #spec_run_time = %x( rspec ).scan(/\d+\.\d+ seconds/)
   def rspec_output_finder(current_array)
     current_array.each do |case_example|
-      if !case_example.is_regex_empty?("\d+ second")
+      if !case_example.is_regex_empty?("\\d+ second")
         @test_runtime = case_example.scan(/\d+\.\d+/)#.to_i
         puts "seconds", @test_runtime
-      elsif !case_example.is_regex_empty?("\d+ example")
+      elsif !case_example.is_regex_empty?("\\d+ example")
         @number_of_examples = case_example.scan(/\d+/)#.to_f
         puts "examples", @number_of_examples
-      elsif !case_example.is_regex_empty?("\d+ failure")
+      elsif !case_example.is_regex_empty?("\\d+ failure")
         @number_of_failures = case_example.scan(/\d+/)#.to_f
         puts "failures", @number_of_failures
-      elsif !case_example.is_regex_empty?("\d+ pending")
+      elsif !case_example.is_regex_empty?("\\d+ pending")
         @number_of_pending = case_example.scan(/\d+/)#.to_f
         puts "pending", @number_of_pending        
-      elsif case_example.is_regex_empty?("\d+ pending")
+      elsif case_example.is_regex_empty?("\\d+ pending")
         @number_of_pending = 0
         #pending is the only one that has the possibility to not appear in the rspec output
       end
