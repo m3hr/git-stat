@@ -2,12 +2,12 @@ require 'csv'
 require_relative 'git_stat/utils'
 include GitStat
 
-module RspecScanner  
+module RspecScanner
   def rspec_scanner(file_specified)
     %x( rspec #{file_specified} ).scan(/\d+\.\d+ second|\d+ example|\d+ failure|\d+ pending/)
   end
   #exec? edit: no need, string interpolation works in rspec_scanner with %x
-  
+
   def title_csv(csv_file_location)
     CSV.open("#{csv_file_location}","ab") do |csv|
       csv << ["Run time of tests", "Examples", "Failures", "Pending"]
@@ -33,21 +33,21 @@ module RspecScanner
         #puts "failures", number_of_failures
       elsif !case_example.is_regex_empty?("\\d+ pending")
         number_of_pending = case_example.scan(/\d+/)[0].to_i
-        #puts "pending", number_of_pending        
+        #puts "pending", number_of_pending
       elsif case_example.is_regex_empty?("\\d+ pending")
         number_of_pending = 0
-        #pending is the only one that has the possibility to not appear in the rspec output
+        #pending is the only metric that has the possibility to not appear in the rspec output
       end
-      
+
     end
-    cases_array << number_of_examples << number_of_failures << number_of_pending
+    cases_array << test_runtime << number_of_examples << number_of_failures << number_of_pending
     return cases_array
-    
+
   end
-  def append_spec_data(time, examples, failures, pending, csv_file_location) 
+  def append_spec_data(time, examples, failures, pending, csv_file_location)
     saved_current_time = Time.now#.to_s
     CSV.open("#{csv_file_location}","ab") do |csv|
-      csv << ["#{time}", "#{examples}", "#{failures}", "#{pending}"]  
+      csv << %W(#{time} #{examples} #{failures} #{pending})
     end
-  end  
+  end
 end
