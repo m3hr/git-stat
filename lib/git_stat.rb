@@ -6,13 +6,15 @@ module RspecScanner
   def rspec_scanner(file_specified)
     %x( rspec #{file_specified} ).scan(/\d+\.\d+ second|\d+ example|\d+ failure|\d+ pending/)
   end
+
   #exec? edit: no need, string interpolation works in rspec_scanner with %x
 
   def title_csv(csv_file_location)
-    CSV.open("#{csv_file_location}","ab") do |csv|
+    CSV.open("#{csv_file_location}", "ab") do |csv|
       csv << ["Run time of tests", "Examples", "Failures", "Pending"]
     end
   end
+
   #spec_run_time = %x( rspec ).scan(/\d+\.\d+ seconds/)
   def rspec_output_finder(current_array)
     cases_array = []
@@ -44,9 +46,10 @@ module RspecScanner
     return cases_array
 
   end
+
   def append_spec_data(time, examples, failures, pending, csv_file_location)
-    saved_current_time = Time.now#.to_s
-    CSV.open("#{csv_file_location}","ab") do |csv|
+    saved_current_time = Time.now #.to_s
+    CSV.open("#{csv_file_location}", "ab") do |csv|
       csv << %W(#{time} #{examples} #{failures} #{pending})
     end
   end
