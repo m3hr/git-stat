@@ -12,7 +12,7 @@ describe RspecScanner do
 
   it 'can still work if the pending is non-existent' do
     test_spec_examples_array = rspec_scanner('./spec/fixtures/some_passing_some_failing_no_pending.rb')
-    rspec_output_finder(test_spec_examples_array).should == ({ :runtime => !nil, :examples => fixture_examples, :failures => fixture_failures, :pending => fixture_pending })
+    rspec_output_finder(test_spec_examples_array).should == ({ :runtime => !nil, :examples => !nil, :failures => !nil, :pending => !nil })
 
   end
 end
