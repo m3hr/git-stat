@@ -9,10 +9,13 @@ describe RspecScanner do
     rspec_output_finder(test_spec_examples_array).should == ({ :runtime => !nil, :examples => !nil, :failures => !nil, :pending => !nil })
   end
   end
-
+   #Hash.has_key? has_value?
   it 'can still work if the pending is non-existent' do
     test_spec_examples_array = rspec_scanner('./spec/fixtures/some_passing_some_failing_no_pending.rb')
-    rspec_output_finder(test_spec_examples_array).should == ({ :runtime => !nil, :examples => !nil, :failures => !nil, :pending => !nil })
+    rspec_output_finder(test_spec_examples_array)[:examples].should == 3
+    rspec_output_finder(test_spec_examples_array)[:failures].should == 1
+    rspec_output_finder(test_spec_examples_array)[:pending].should == 0
+     #== ({ :runtime => !nil, :examples => !nil, :failures => !nil, :pending => !nil })
 
   end
 end
