@@ -1,4 +1,4 @@
-* add json gem x
+* add json gem ✓
 * add chartjs
 * export spec data to json
 * take json to chartjs to make a line graph
