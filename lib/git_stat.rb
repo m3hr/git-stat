@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'git_stat/utils'
 include GitStat
-
+require 'json'
 module RspecScanner
   def rspec_scanner(file_specified)
     %x( rspec #{file_specified} ).scan(/\d+\.\d+ second|\d+ example|\d+ failure|\d+ pending/)
@@ -57,5 +57,11 @@ module RspecScanner
     CSV.open("#{csv_file_location}", "ab") do |csv|
       csv << %W(#{time} #{examples} #{failures} #{pending})
     end
+  end
+
+  def cases_hash_to_json(specified_file)
+    specified_file_array = rspec_scanner(specified_file)
+    file_hash = rspec_output_finder(specified_file_array)
+    file_hash.to_json
   end
 end
