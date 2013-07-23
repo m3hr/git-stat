@@ -3,6 +3,7 @@ require_relative './../lib/git_stat'
 include RspecScanner
 
 describe RspecScanner do
+  # tried to loop through each fixture test, couldn't implement
   #it 'detects the correct hash values' do
   #  Dir[File.dirname(__FILE__) + '/fixtures/*.rb'].each do |fixture_test|
   #  test_spec_examples_array = rspec_scanner(fixture_test)
@@ -24,4 +25,9 @@ describe RspecScanner do
     rspec_output_finder(test_spec_examples_array)[:failures].should == 1
     rspec_output_finder(test_spec_examples_array)[:pending].should == 0
   end
+# super meta, super recursion error
+#  it 'can run this very file correctly' do
+#    test_spec_examples_array = rspec_scanner(__FILE__)
+#    rspec_output_finder[:examples].should == 3
+#  end
 end
