@@ -3,4 +3,5 @@
 * export spec data to json
 * take json to chartjs to make a line graph
 * automate `array = rspec_scanner; rspec_output_finder(array)` business
-* automate whole process into a binary
+* automate whole process into a binary (executable?)
+* tested shell script, seems to break when error hit in the shell
